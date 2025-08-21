@@ -1,0 +1,103 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Background and layout */
+body {
+  background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background: #ff6b6b;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+  font-size: 24px;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: url("https://images.unsplash.com/photo-1524492449090-0c8a76c6e727") no-repeat center/cover;
+  color: white;
+  border-radius: 12px;
+  margin: 20px;
+}
+
+.hero h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+/* Venue Cards */
+.venue-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.venue-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-5px);
+}
+
+.venue-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.venue-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.venue-card p {
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  background: #ff6b6b;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+}
