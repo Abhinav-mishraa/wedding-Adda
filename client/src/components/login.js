@@ -1,40 +1,21 @@
+ 
+ 
+
+ 
 import React, { useState } from "react";
-import axios from "axios";
-
-// const Login = () => {
-//   const [user, setUser] = useState({ email: "", password: "" });
-
-//   const handleChange = (e) => {
-//     setUser({ ...user, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await axios.post("http://localhost:5000/api/auth/login", user);
-//       alert(res.data.message);
-//     } catch (err) {
-//       alert("Login failed");
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-//       <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-//       <button type="submit">Login</button>
-//     </form>
-//   );
-// };
-
+import { Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
+import './Auth.css';
 
 const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  
+  const { login } = useAuth();
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -42,8 +23,7 @@ const Login = () => {
     setLoading(true);
     setMessage("");
 
-    // Debug: Log what we're sending
-    console.log("Sending login data:", user);
+    console.log("Sending login data:", credentials);
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -51,19 +31,20 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(credentials),
       });
 
       const data = await response.json();
       console.log("Login response:", data);
       
       if (response.ok) {
-        // Store the JWT token
-        if (data.token) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-        }
-        setMessage(`Welcome back, ${data.user.username}!`);
+        login(data.user, data.token);
+        setMessage("Login successful! Welcome back.");
+        setCredentials({ email: "", password: "" });
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1500);
       } else {
         setMessage(data.error || "Login failed. Please try again.");
       }
@@ -77,55 +58,54 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-      
-      {message && (
-        <div className={`p-4 mb-4 rounded ${
-          message.includes('Welcome') 
-            ? 'bg-green-100 border border-green-400 text-green-700' 
-            : 'bg-red-100 border border-red-400 text-red-700'
-        }`}>
-          {message}
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to your account</p>
         </div>
-      )}
+        
+        {message && (
+          <div className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+            {message}
+          </div>
+        )}
 
-      <div>
-        <div className="mb-4">
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="Email" 
-            value={user.email}
-            onChange={handleChange} 
-            required 
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Email Address" 
+              value={credentials.email}
+              onChange={handleChange} 
+              required 
+            />
+          </div>
+          
+          <div className="form-group">
+            <input 
+              type="password" 
+              name="password" 
+              placeholder="Password" 
+              value={credentials.password}
+              onChange={handleChange} 
+              required 
+            />
+          </div>
+          
+          <button 
+            type="submit"
+            disabled={loading}
+            className="auth-btn"
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
         
-        <div className="mb-6">
-          <input 
-            type="password" 
-            name="password" 
-            placeholder="Password" 
-            value={user.password}
-            onChange={handleChange} 
-            required 
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+        <div className="auth-footer">
+          <p>Don't have an account? <Link to="/register">Create one here</Link></p>
         </div>
-        
-        <button 
-          onClick={handleSubmit}
-          disabled={loading}
-          className={`w-full py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 ${
-            loading 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-green-500 hover:bg-green-600 cursor-pointer'
-          } text-white`}
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
       </div>
     </div>
   );

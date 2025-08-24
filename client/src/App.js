@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './components/AuthContext';
 import AddVenue from './components/AddVenue';
 import ViewVenues from "./components/ViewVenue";
 import Navbar from './components/Navbar';
@@ -13,6 +14,7 @@ import './App.css';
 
 function App() {
   return (
+     <AuthProvider> 
     <Router>
       <div className="App">
         <Navbar />
@@ -23,13 +25,15 @@ function App() {
           <Route path="/viewvenues" element={<ViewVenues />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/feedback" element={<AddFeedback />} />
+          <Route path="/AddFeedback" element={<AddFeedback />} />
         </Routes>
 
         <Footer />
       </div>
     </Router>
+    </AuthProvider>
   );
 }
 
 export default App;
+ 
