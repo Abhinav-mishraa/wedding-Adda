@@ -16,7 +16,7 @@ const AddFeedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/feedback", feedback);
+      await axios.post("https://wedding-adda-backend.onrender.com/api/feedback", feedback);
       alert("Feedback submitted successfully!");
       setFeedback({ name: "", email: "", message: "" });
     } catch (err) {
