@@ -21,7 +21,11 @@ const Register = () => {
     console.log("Sending registration data:", user);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://wedding-adda-backend.onrender.com'  // Replace with your actual backend URL
+  : 'http://localhost:5000';
+
+const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
