@@ -43,7 +43,7 @@ const AddVenue = () => {
     try {
       // Send request with authentication header
     const response = await axios.post(
-  "https://wedding-adda-backend.onrender.com/api/venues",  // ✅ Complete URL with endpoint
+  "https://wedding-adda-backend.onrender.com/api/venues",   
         venue,
         {
           headers: {
