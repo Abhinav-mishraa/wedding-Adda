@@ -27,6 +27,30 @@ const AddVenue = () => {
     setVenue({ ...venue, [e.target.name]: e.target.value });
   };
 
+
+const generateDescription = async () => {
+  try {
+    const res = await axios.post(
+      "https://wedding-adda-backend.onrender.com/api/ai/generate-description",
+      {
+        name: venue.name,
+        city: venue.location,
+        capacity: venue.capacity,
+      }
+    );
+
+    setVenue({
+      ...venue,
+      description: res.data.description,
+    });
+
+  } catch (error) {
+    console.error("AI Error:", error);
+    alert("Failed to generate description");
+  }
+};
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -158,13 +182,39 @@ const AddVenue = () => {
           value={venue.imageUrl} 
           onChange={handleChange} 
         />
-        
+{/*         
         <textarea 
           name="description" 
           placeholder="Description" 
           value={venue.description} 
           onChange={handleChange} 
-        />
+        /> */}
+
+
+        <textarea 
+  name="description" 
+  placeholder="Description" 
+  value={venue.description} 
+  onChange={handleChange} 
+/>
+
+<button 
+  type="button" 
+  onClick={generateDescription}
+  style={{
+    marginBottom: "10px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    cursor: "pointer",
+    borderRadius: "5px"
+  }}
+>
+  Generate Description (AI)
+</button>
+
+
         <input 
           type="number" 
           name="phone" 

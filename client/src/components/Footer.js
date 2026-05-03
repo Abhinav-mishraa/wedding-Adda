@@ -57,7 +57,7 @@ function Footer() {
                 <i className="fab fa-facebook-f"></i>
               </button>
               <button 
-                onClick={() => handleSocialClick('Instagram')}
+                onClick={() => handleSocialClick('https://www.instagram.com/unknown____00021?igsh=MXVqMndnNWt0cnh2Zg==')}
                 aria-label="Instagram"
                 className="social-btn instagram"
               >
