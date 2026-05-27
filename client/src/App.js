@@ -7,7 +7,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AddFeedback from "./components/AddFeedback";
 import Register from "./components/Register";
-import Login from "./components/login"; // Capital 'L'
+import Login from "./components/login";
+import Home from "./components/Home"; // Capital 'L'
 import './App.css'; 
 // import './style.css';
 
@@ -20,7 +21,7 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<h1>Wedding Adda 💒</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="/addvenue" element={<AddVenue />} />
           <Route path="/viewvenues" element={<ViewVenues />} />
           <Route path="/register" element={<Register />} />
