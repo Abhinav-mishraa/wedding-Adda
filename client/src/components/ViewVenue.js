@@ -17,7 +17,10 @@ function ViewVenues() {
     const fetchVenues = async () => {
       try {
         setLoading(true);
-        const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        // const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://wedding-adda-backend.onrender.com";
         
         const response = await axios.get(`${API_URL}/api/venues`);
         console.log('API Response:', response.data); // Debug log

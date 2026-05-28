@@ -1,4 +1,4 @@
-// src/components/AuthContext.js - Add this new file
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('token', authToken);
   };
 
-  // Logout function - this is what you wanted to add
+  
   const logout = () => {
     const confirmLogout = window.confirm('Are you sure you want to logout?');
     if (confirmLogout) {
